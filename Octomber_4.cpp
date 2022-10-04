@@ -13,33 +13,28 @@
  */
 class Solution {
 public:
-    bool bfs(TreeNode* root, int targetSum){
+    bool dfs(TreeNode* root, int targetSum){
 
         // base case
         if(root == NULL){
             return false;
         }
-        
-        targetSum -= root->val;
-        bool ans = false;
-        cout<<targetSum<<" ";
 
-        // check for left and right child
+        // sub
+        targetSum -= root->val;
+        
+        
         if(root->left == NULL and root->right == NULL){
             return targetSum == 0;
         }
-        if(root->left){
-            ans = ans | bfs(root->left,targetSum);
-        }
-        if(root->right){
-            ans = ans | bfs(root->right,targetSum);
-        }
-        return ans;
+
+        // check for left and right child
+        return dfs(root->left,targetSum) || dfs(root->right,targetSum);
     }
     bool hasPathSum(TreeNode* root, int targetSum) {
         if(root == NULL){
             return false;
         }
-        return bfs(root,targetSum);
+        return dfs(root,targetSum);
     }
 };
